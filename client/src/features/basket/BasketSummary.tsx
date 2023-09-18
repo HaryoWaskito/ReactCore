@@ -6,16 +6,11 @@ import {
   TableRow,
   TableCell,
 } from "@mui/material";
-import { Basket } from "../../app/models/Basket";
 import { currencyFormat } from "../../app/util/util";
-import { useStoreContext } from "../../app/context/StoreContext";
-
-interface Props {
-  basket: Basket;
-}
+import { useAppSelector } from "../../app/store/configureStore";
 
 export default function BasketSummary() {
-  const { basket } = useStoreContext();
+  const { basket } = useAppSelector(state => state.basket)
   const subTotal = basket?.items.reduce((sum, item) => sum + item.quantity * item.price,0) ?? 0;
   const deliveryFee = subTotal > 10000 ? 0 : 500;
 
